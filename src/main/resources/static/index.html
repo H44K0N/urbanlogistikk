@@ -196,7 +196,7 @@
             <div>
                 <h2 class="sectionTitle">Kontakt oss</h2>
                 <p class="sectionDesc">Fortell kort om behovet, så kommer vi raskt tilbake.</p>
-                <form id="quote-form">
+                <form id="quote-form" action="/contact" method="post">
                     <label for="navn">Navn</label>
                     <input id="navn" name="navn" placeholder="Fornavn Etternavn" />
                     <label for="epost">E‑post</label>
@@ -235,15 +235,11 @@
     });
 
     // Form handler (mock)
-    const form = document.getElementById('quote-form');
-    form?.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const data = new FormData(form);
-        const name = data.get('navn') || 'deg';
-        const email = data.get('epost') || 'oppgitt e‑post';
-        alert(`Takk! Vi kontakter ${name} på ${email} innen kort tid.`);
-        form.reset();
-    });
+    const p = new URLSearchParams(location.search);
+    if (p.get('ok') === '1') {
+        alert('Takk! Vi tar kontakt snart.');
+        history.replaceState({}, '', location.pathname); // fjern ?ok=1 fra URL
+    }
 
     // Dynamic year
     document.getElementById('year').textContent = String(new Date().getFullYear());
