@@ -12,3 +12,6 @@ spring:
 app:
   contact:
     to: ${CONTACT_TO}
+logging:
+  level:
+    org.springframework.mail: DEBUG
