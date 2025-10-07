@@ -196,27 +196,34 @@
             <div>
                 <h2 class="sectionTitle">Kontakt oss</h2>
                 <p class="sectionDesc">Fortell kort om behovet, så kommer vi raskt tilbake.</p>
-                <form id="quote-form" action="/contact" method="post">
+
+                <form id="quote-form" action="https://formspree.io/f/mldpwbzj" method="POST">
                     <label for="navn">Navn</label>
-                    <input id="navn" name="navn" placeholder="Fornavn Etternavn" />
-                    <label for="epost">E‑post</label>
-                    <input id="epost" name="epost" type="email" placeholder="epost@firma.no" />
+                    <input id="navn" name="navn" placeholder="Fornavn Etternavn" required />
+
+                    <label for="epost">E-post</label>
+                    <input id="epost" name="email" type="email" placeholder="epost@firma.no" required />
+
                     <label for="telefon">Telefon</label>
                     <input id="telefon" name="telefon" type="tel" placeholder="+47 …" />
+
                     <label for="behov">Hva trenger dere?</label>
-                    <textarea id="behov" name="behov" placeholder="Ruter, volum, temperaturkrav …"></textarea>
+                    <textarea id="behov" name="message" placeholder="Ruter, volum, temperaturkrav …" required></textarea>
+
                     <button class="btn primary" type="submit">Send forespørsel</button>
                 </form>
             </div>
+
             <aside>
                 <h3>Urban Logistikk AS</h3>
                 <p>Åpningstider: 07–17 (beredskap 24/7)</p>
                 <p>Tlf: +47 968 40 395</p>
-                <p>E‑post: <a href="mailto:urbanlogistikk@outlook.com">urbanlogistikk@outlook.com</a></p>
+                <p>E-post: <a href="mailto:urbanlogistikk@outlook.com">urbanlogistikk@outlook.com</a></p>
                 <p>Org.nr: 927 027 100</p>
             </aside>
         </div>
     </section>
+
 </main>
 
 <footer class="footer">
@@ -234,12 +241,12 @@
         if(menu){ menu.style.display = isOpen ? '' : 'flex'; }
     });
 
-    // Form handler (mock)
-    const p = new URLSearchParams(location.search);
-    if (p.get('ok') === '1') {
-        alert('Takk! Vi tar kontakt snart.');
-        history.replaceState({}, '', location.pathname); // fjern ?ok=1 fra URL
-    }
+    // Form handler (Clears cache on reload)
+    window.addEventListener('pageshow', (event) => {
+        if (event.persisted) {
+            document.getElementById('quote-form').reset();
+        }
+    });
 
     // Dynamic year
     document.getElementById('year').textContent = String(new Date().getFullYear());
